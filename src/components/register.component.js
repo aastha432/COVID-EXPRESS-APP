@@ -147,10 +147,10 @@ debugger;
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <Avatar className={classes.avatar}  className="mt-3">
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" className="mb-3">
           Sign up
         </Typography>
         <form className={classes.form} noValidate>
@@ -224,7 +224,7 @@ debugger;
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2" onClick={()=>this.props.loginPage(1)}>
+              <Link href="/signin" variant="body2" onClick={()=>this.props.loginPage(1)}>
                 Already have an account? Sign in 
               </Link>
             </Grid>

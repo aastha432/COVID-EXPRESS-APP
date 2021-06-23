@@ -13,8 +13,8 @@ export default class Profile extends Component {
   render() {
     const { currentUser } = this.state;
 
-    return (
-      <div className="container">
+    /*return (
+      <div className="container"> 
         <header className="jumbotron">
           <h3>
             <strong>{currentUser.username}</strong> Profile
@@ -38,7 +38,11 @@ export default class Profile extends Component {
           {currentUser.roles &&
             currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
         </ul>
-      </div>
+      </div>*/
+      return(
+        <div>
+          <h1>This is the profile page</h1>
+        </div>
     );
   }
 }

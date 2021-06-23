@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AuthService from "../services/auth.service";
-
+ 
 
 function Copyright() {
   return (
@@ -114,7 +114,7 @@ debugger;
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <Avatar className={classes.avatar} className="mt-3">
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -166,7 +166,7 @@ debugger;
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2" onClick={()=>this.props.registerPage(0)}>
+              <Link href="/signup" variant="body2" onClick={()=>this.props.registerPage(0)}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
