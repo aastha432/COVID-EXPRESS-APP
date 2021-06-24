@@ -26,7 +26,7 @@ const dbConfig = require("./app/config/db.config");
 const Role = db.role;
 
 db.mongoose
-  .connect(`mongodb://45c17ff3-0ee0-4-231-b9ee:9NePtP8mR78rPyqqVJ6qNsMCTPjLaCzVb3hcGbNkT0AwwxAgc7yqXjFptmKhX9Anfz8oDPMPuJdlHdYnVTx0vQ%3D%3D@45c17ff3-0ee0-4-231-b9ee.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@45c17ff3-0ee0-4-231-b9ee@`, {
+  .connect(` `, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })

@@ -1,6 +1,6 @@
 /*This is a temporaray static DB created to check the functioning of order,cart,home page. The connection to
   this file need to be replaced with MOngoDB API calls. I created this using Github API*/
-
+ 
   const TempDB = [ 
     {
       "login": "mojombo",

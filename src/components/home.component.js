@@ -8,19 +8,6 @@ import TempDB from '../temporaryDB';
    No Authentication is required to add food packets to cart
  */
 
-function Card (){
-    return (
-    <div class="col-sm mt-3">
-        <div class="card">
-            <img class="card-img-top" src="..." alt="Card image cap"/>
-            <div class="card-body">
-                 <h5 class="card-title">hhhhhhhhh</h5>
-                <p class="card-text">Some quick text</p>
-                <a href="/" class="btn btn-primary">Add to Cart</a>
-            </div>
-        </div>
-    </div>);
-}
 
  class Home extends Component {
      constructor(props) {
@@ -43,7 +30,7 @@ function Card (){
                                     <a href="/" class="btn btn-primary">Add to Cart</a>
                                 </div>
                                 </div>
-                            </div>);
+                            </div>); 
                     })}
                  </div>
              </div>

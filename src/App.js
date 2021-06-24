@@ -9,6 +9,7 @@ import Cart from './components/cart.component';
 import Landing from './components/landing.component';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Home from './components/home.component';
+import Payment from './components/payment.component';
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
@@ -59,7 +60,8 @@ changeScreen(val){
             <Route path='/orders' component={Orders}/>
             <Route path='/cart' component={Cart}/>
             <Route path='/home' component={Home}/>
-             
+            <Route path='/payment' component={Payment}/>
+
         </BrowserRouter>
     );
   }
