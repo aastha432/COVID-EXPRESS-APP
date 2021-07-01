@@ -8,7 +8,20 @@
     "express": "^4.15.3",
     "morgan": "^1.8.2",
     "debug": "~2.6.3",
-    "jade": "^1.11.0"
+    "jade": "^1.11.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
+    "dotenv": "^8.2.0",
+    "express-jwt": "^6.0.0",
+    "express-validator": "^6.2.0",
+    "formidable": "^1.2.1",
+    "i": "^0.3.6",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.7.7",
+    "nodemon": "^1.19.4",
+    "npm": "^6.13.0",
+    "uuid": "^3.3.3"
   },
   "scripts": {
     "start": "./server.js"
