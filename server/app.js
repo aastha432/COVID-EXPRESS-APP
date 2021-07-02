@@ -39,7 +39,7 @@ app.use(cookieParser());
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'build')));
-
+ 
 
 
 

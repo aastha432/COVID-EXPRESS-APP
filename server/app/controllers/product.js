@@ -22,13 +22,11 @@ exports.createProduct = (req, res) => {
 
   form.parse(req, (err, fields, file) => {
     if (err) {
-      return res.status(400).json({
-        error: "Probelm with something, find that thing on your own",
-      });
+      console.log(err);
     }
     //destructure fields
-    const { name, description, price, category, stock } = fields;
-    if (!name || !description || !price || !category || !stock) {
+    const { name, description, price, stock } = fields;
+    if (!name || !description || !price || !stock) {
       return res.status(400).json({
         error: "Please include all fields",
       });
@@ -38,6 +36,7 @@ exports.createProduct = (req, res) => {
 
     //handle file here
     if (file.photo) {
+      console.log("file.photo is accessible");
       if (file.photo.size > 3000000) {
         return res.status(400).json({
           error: "File size is too big!",
@@ -66,6 +65,7 @@ exports.getProduct = (req, res) => {
 //middleware
 exports.photo = (req, res, next) => {
   if (req.product.photo.data) {
+    console.log(req.product.photo.data);
     res.set("Content-Type", req.product.photo.contentType);
     return res.send(req.product.photo.contentType);
   }
@@ -127,6 +127,7 @@ exports.updateProduct = (req, res) => {
 exports.getAllProducts = (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+  console.log("Entered the getAllProducts func")
 
   Product.find()
     .select("-photo")

@@ -70,6 +70,6 @@ const opts = { toJSON: { virtuals: true } };
             return ""
           }
      }
- }
+ } 
 
 module.exports = mongoose.model("User",userSchema); 

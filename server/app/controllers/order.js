@@ -5,7 +5,7 @@ exports.getOrderById = (req, res, next, id) => {
     .populate("products.product", "name price")
     .exec((err, order) => {
       if (err) {
-        return res.status(400).json({
+        return res.status(400).json({ 
           error: "No such order found in DB",
         });
       }
