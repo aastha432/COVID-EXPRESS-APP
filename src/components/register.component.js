@@ -147,9 +147,6 @@ debugger;
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}  className="mt-3">
-          <LockOutlinedIcon />
-        </Avatar>
         <Typography component="h1" variant="h5" className="mb-3">
           Sign up
         </Typography>

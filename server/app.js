@@ -30,8 +30,10 @@ mongoose
   })
   .then(() => {
     console.log("DB connected succesfully");
+  }).catch(()=>{
+    console.log("DB not connected succesfully");
   });
-
+ 
 //middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
