@@ -31,7 +31,7 @@ exports.updateUser = (req, res) => {
       if (err) {
         return res.status(400).json({
           error: "Updting was not successfull",
-        }); 
+        });
       }
       user.salt = undefined;
       user.encry_password = undefined;

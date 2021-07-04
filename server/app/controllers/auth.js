@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
 
   if (!errors.isEmpty()) {
     return res.status(422).json({
-      error: errors.array()
+      error: errors.array() 
     });
   } 
 
@@ -75,7 +75,7 @@ exports.isSignedIn = expressJwt({
   secret: process.env.SECRET,  
   algorithms: ['sha1', 'RS256', 'HS256'],
   userProperty: "auth"
-}) 
+})
 
 //custom middlewares
 exports.isAuthenticated = (req, res, next) => {

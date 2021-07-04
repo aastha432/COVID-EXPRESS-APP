@@ -22,11 +22,13 @@ exports.createProduct = (req, res) => {
 
   form.parse(req, (err, fields, file) => {
     if (err) {
-      console.log(err);
+      return res.status(400).json({
+        error: "Probelm with something, find that thing on your own",
+      });
     }
     //destructure fields
-    const { name, description, price, stock } = fields;
-    if (!name || !description || !price || !stock) {
+    const { name, description, price, category, stock } = fields;
+    if (!name || !description || !price || !category || !stock) {
       return res.status(400).json({
         error: "Please include all fields",
       });
@@ -36,7 +38,6 @@ exports.createProduct = (req, res) => {
 
     //handle file here
     if (file.photo) {
-      console.log("file.photo is accessible");
       if (file.photo.size > 3000000) {
         return res.status(400).json({
           error: "File size is too big!",
@@ -65,7 +66,6 @@ exports.getProduct = (req, res) => {
 //middleware
 exports.photo = (req, res, next) => {
   if (req.product.photo.data) {
-    console.log(req.product.photo.data);
     res.set("Content-Type", req.product.photo.contentType);
     return res.send(req.product.photo.contentType);
   }

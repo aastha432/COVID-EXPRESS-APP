@@ -5,11 +5,11 @@ const {
   getUserById,
   getUser,
   updateUser,
-  userPurchaseList, 
+  userPurchaseList,
 } = require("../controllers/user");
 const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 const { get } = require("lodash");
- 
+
 //params
 router.param("userId", getUserById);
 

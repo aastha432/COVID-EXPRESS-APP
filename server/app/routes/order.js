@@ -59,7 +59,7 @@ router.post(
 //read
 router.get(
   "/order/all/:userId",
-  isSignedIn, 
+  isSignedIn,
   isAuthenticated,
   isAdmin,
   getAllOrders

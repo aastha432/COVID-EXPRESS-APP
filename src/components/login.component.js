@@ -12,9 +12,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import AuthService from "../services/auth.service";
- 
-
+import AuthService, { authenticate, signin } from "../services/auth.service";
+import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
+import { Spinner } from '@fluentui/react/lib/Spinner';
+import { DefaultButton, PrimaryButton } from '@fluentui/react/lib/Button';
+import * as Constants from '../Constants';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -59,8 +61,10 @@ export default class SignIn extends Component{
     this.state = {
       username: "",
       password: "",
-      loading: false,
-      message: ""
+      successful: false,
+      isError:false,
+      message: "",
+      loader:false,
     };
   }
 
@@ -79,25 +83,26 @@ export default class SignIn extends Component{
   handleLogin(e) {
     e.preventDefault();
 debugger;
-      AuthService.login(this.state.username, this.state.password).then(
-        () => {
-          this.props.history.push("/profile");
-          window.location.reload();
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+let email = this.state.username;
+let password = this.state.password;
+signin({ email, password })
 
-          this.setState({
-            loading: false,
-            message: resMessage
-          });
-        }
-      );
+.then(data => {
+  if (data.error) {
+    this.setState({
+      message: data.error?data.error:data.err,
+      successful: false,
+      loader:false,
+      isError:true
+    });
+  } else {
+    authenticate(data, () => {
+      this.props.authenticateUser();
+      this.props.changePage(Constants.ScreenName.Home);
+    });
+  }
+})
+.catch(console.log("signin request failed"));
     
     }
   
@@ -166,13 +171,25 @@ debugger;
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/signup" variant="body2" onClick={()=>this.props.registerPage(0)}>
+              <Link href="#" variant="body2" onClick={()=>this.props.changeScreen(Constants.ScreenName.Register)}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
+      <Dialog
+        hidden={!this.state.successful && !this.state.loader && !this.state.isError}
+       isBlocking
+      // onDismiss={this.closeDialog}
+      >
+         {this.state.loader?<Spinner label="Working on it"></Spinner>:""}
+          {this.state.successful || this.state.isError?this.state.message:"" }
+        <DialogFooter>
+         
+        {this.state.successful || this.state.isError?<PrimaryButton onClick={this.closeDialog} text="Ok" />:""}
+        </DialogFooter>
+      </Dialog>
       <Box mt={8}>
         <Copyright />
       </Box>

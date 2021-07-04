@@ -2,6 +2,7 @@ import { pink } from '@material-ui/core/colors';
 import { Link } from '@material-ui/icons';
 import React, { Component, PropTypes } from 'react';
 import {AiOutlineShoppingCart} from 'react-icons/ai';
+import * as Constants from '../Constants';
 
 class Landing extends Component {
     constructor(props) {
@@ -19,31 +20,31 @@ class Landing extends Component {
   </button>
   <div className="collapse navbar-collapse" id="navbarNav">
     <ul className="navbar-nav">
-    <li className="nav-item">
+    {/* <li className="nav-item">
         <a className="nav-link" href="/profile">Victim Profile<span class="sr-only">(current)</span></a>
       </li>
       <li className="nav-item">
         <a className="nav-link" href="/profile">Warrior Profile<span class="sr-only">(current)</span></a>
+      </li> */}
+      <li className="nav-item" style={{display:this.props.currentLoggedIn?'':'none'}}>
+        <a className="nav-link" href="#" onClick={()=>this.props.changePage(Constants.ScreenName.MyProfile)}>My Profile<span class="sr-only">(current)</span></a>
       </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/profile">Admin Profile<span class="sr-only">(current)</span></a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/orders">Orders <span class="sr-only">(current)</span></a>
+      <li className="nav-item" style={{display:this.props.currentLoggedIn?'':'none'}}>
+        <a className="nav-link" href="#" onClick={()=>this.props.changePage(Constants.ScreenName.MyOrders)}>My Orders<span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-            <a className="nav-link" href="/signup">Sign up </a>
+        <li className="nav-item" style={{display:this.props.currentLoggedIn?'none':''}}>
+            <a className="nav-link" href="#" onClick={()=>this.props.changePage(Constants.ScreenName.Register)}>Sign up </a>
         </li>
-        <li className="nav-item">
-            <a className="nav-link" href="/signin">Sign in </a>
+        <li className="nav-item" style={{display:this.props.currentLoggedIn?'none':''}}>
+            <a className="nav-link" href="#" onClick={()=>this.props.changePage(Constants.ScreenName.Login)}>Sign in </a>
         </li>
-        <li className="nav-item">
-            <a className="nav-link" href="/">Sign out </a>
+        <li className="nav-item" style={{display:this.props.currentLoggedIn?'':'none'}}>
+            <a className="nav-link" href="#" onClick={()=>this.props.changePage(Constants.ScreenName.Login)}>Sign out </a>
         </li>
-        <li className="nav-item">
-            <a className="nav-link" href="/cart">My Cart <AiOutlineShoppingCart/> </a>
+        <li className="nav-item" >
+            <a className="nav-link" href="#" onClick={()=>this.props.changePage(Constants.ScreenName.MyCart)}>My Cart <AiOutlineShoppingCart/> </a>
         </li>
         <li className="nav-item">
             <a className="nav-link" href="/aboutus">About us</a>
