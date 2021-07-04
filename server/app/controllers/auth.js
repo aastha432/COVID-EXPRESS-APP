@@ -1,4 +1,5 @@
-require("dotenv").config();    
+const dotenv = require("dotenv");
+dotenv.config(); 
 
 
 const User = require("../models/user");
@@ -71,7 +72,7 @@ exports.signout = (req, res) => {
 
 //protected routes
 exports.isSignedIn = expressJwt({
-  secret: process.env.SECRET, 
+  secret: process.env.SECRET,  
   algorithms: ['sha1', 'RS256', 'HS256'],
   userProperty: "auth"
 })

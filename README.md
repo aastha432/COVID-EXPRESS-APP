@@ -12,32 +12,49 @@ OR...
 ## Installing
 
 ```bash
-git clone 'this-repo-url' app-name
+git clone 'https://github.com/aastha432/COVID-FOOD-EXPRESS' app-name
 cd app-name
 npm install
 ```
+
+## Environment variables setup
+
+You need to create a **.env** file in the root directory of your application where README.md is present.
+The contents of the **.env** is as follows...
+
+```bash
+DATABASE = "Your_mongoDb_connection_string"
+SECRET = "Your_secret_variable_for_token_creation"
+```
+
 
 ## Running The App
 
 The template can be run in development, or in production. For development, use the following workflow.
 
 ### Start the Express Server
+The Express server is running at port 3001 in development.
 
 ```bash
 node server/server.js
 ```
 
 ### Start Create React App
-
-In a different terminal tab...
+The React server is running at port 3000 in development.
 
 ```bash
 npm start
 ```
 
-![Imgur](http://i.imgur.com/f7Nlvx4.png)
+### For starting the entire application
+You just need to start the React server, express server gets fired up automatically.
 
-The "Welcome to React" is a message that comes from the Express server. 
+```bash
+npm start
+```
+
+
+
 
 ### What Is Happening Here?
 
@@ -49,7 +66,7 @@ All AJAX/fetch requests to `/api` are sent back to the Express server which is s
 
 In production, you want Express to serve up your app.
 
-### Build React App
+### Build Your App
 
 ```bash
 npm build
