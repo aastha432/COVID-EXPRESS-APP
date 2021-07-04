@@ -21,7 +21,7 @@ class App extends Component {
     super(props);
     this.changeScreen = this.changeScreen.bind(this);
     this.authenticateUser = this.authenticateUser.bind(this);
-    
+    this.setCartItems = this.setCartItems.bind(this);
     let screen;
     let isUserLoggedIn = false;
     if(localStorage.user != undefined && localStorage.user.length > 0){
@@ -31,7 +31,7 @@ class App extends Component {
     {
       screen = Constants.ScreenName.Home;
     } 
-    this.state = { screen: screen, isUserLoggedIn:isUserLoggedIn };
+    this.state = { screen: screen, isUserLoggedIn:isUserLoggedIn,setCartItems:[] };
     
   }
 
@@ -47,11 +47,15 @@ authenticateUser(){
     isUserLoggedIn:true
   })
 }
-
+setCartItems(array){
+  this.setState({
+    cartItems:array
+  })
+}
   renderSwitch(param) {
     switch(param) {
       case Constants.ScreenName.Home:
-        return <Home changePage={this.changeScreen}></Home>;
+        return <Home changePage={this.changeScreen} setCartItems={this.setCartItems}></Home>;
       case Constants.ScreenName.Register:
         return <SignUp changePage={this.changeScreen}></SignUp>;
       case Constants.ScreenName.Login:
@@ -61,7 +65,7 @@ authenticateUser(){
       case Constants.ScreenName.MyOrders:
         return <Orders changePage={this.changeScreen}></Orders>;
       case Constants.ScreenName.MyCart:
-        return <Cart changePage={this.changeScreen}></Cart>;
+        return <Cart changePage={this.changeScreen} cartItems={this.state.cartItems}></Cart>;
       case Constants.ScreenName.Payment:
         return <Payment changePage={this.changeScreen}></Payment>;
       

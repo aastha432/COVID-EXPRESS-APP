@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { getProducts } from '../services/products.service';
-
- 
+import { Icon } from '@fluentui/react/lib/Icon';
+import { initializeIcons } from '@fluentui/font-icons-mdl2';
+import { TextField, MaskedTextField } from '@fluentui/react/lib/TextField';
+initializeIcons();
 //Food packets on Home page have to be read from database (presently being fetched from static temporaryDB.js file)
 //.... API calls to do................
 //This is page is visible to both authenticated and unauthenticated users
@@ -15,6 +17,7 @@ import { getProducts } from '../services/products.service';
      constructor(props) {
          super(props);
          this.loadProducts = this.loadProducts.bind(this);
+         this.addItemToCart = this.addItemToCart.bind(this);
          this.state = {
              products:[]
          }
@@ -34,6 +37,37 @@ import { getProducts } from '../services/products.service';
           });
      }
  
+     addItemToCart(id,value){
+        let temp = this.state.products;
+        let currentcount;
+        temp.forEach((val,index)=>{
+            if(val.id === id){
+                 currentcount = value;
+                 if(value === undefined || value === null){
+                    currentcount = (val.count === undefined?0:val.count);
+                    currentcount = Number(currentcount) + 1;
+                    
+                 }
+                temp[index]["count"] = currentcount;
+            }
+        });
+        this.setState({
+            products:temp
+        })
+        this.props.setCartItems(temp);
+     }
+     removeItemFromCart(id){
+        let temp = this.state.products;
+        temp.forEach((val,index)=>{
+            if(val.id === id){
+                temp[index]["count"] = Number(val.count) - 1
+            }
+        });
+        this.setState({
+            products:temp
+        })
+     }
+
      render() {
          return (
             <div class="container mt-5">
@@ -44,10 +78,11 @@ import { getProducts } from '../services/products.service';
                              <div class="card">
                                 <img class="card-img-top" src={temp.product_url} alt="Card image cap"/>
                                 <div class="card-body">
-                                    <h5 class="card-title">{temp.name}</h5>
+                                    <h5 class="card-title" style={{textAlign:'center'}}>{temp.name}</h5>
                                     <p class="card-text">{temp.description}</p>
-                                    <p class="card-text">{temp.price}</p>
-                                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                                    <p class="card-text">Price - {temp.price}</p>
+                                    <p class="card-text" style={{display:temp.count > 0?'':'none'}}><TextField  value={temp.count} onChange={(e,val)=>this.addItemToCart(temp.id,Number(val))} styles={{root:{width:'20%',float:'left'}}} label={"count"} type="number"></TextField></p>
+                                    <a style={{display:temp.count === undefined||temp.count === 0?'':'none'}} href="#" class="btn btn-primary" onClick={()=>this.addItemToCart(temp.id)}>Add to Cart</a>
                                 </div>
                                 </div>
                             </div>); 
