@@ -9,19 +9,51 @@ const {
   getAllOrders,
   getOrderStatus,
   updateStatus,
+  addtoCart,
+  deletefromCart,
+  getCartProductsById,
+  getAllCartProducts,
 } = require("../controllers/order");
 
 //params
 router.param("userId", getUserById);
 router.param("orderId", getOrderById);
+router.param("cartproductId", getCartProductsById);
+
+
 //routes actual
-//create
+
+//add products to cart first for order creation
 router.post(
-  "/order/create/:userId",
+  "/cart/:userId",
   isSignedIn,
   isAuthenticated,
-  pushOrderInPurchaseList,
-  updateStock,
+  addtoCart
+);
+
+//get all products from cart
+router.get(
+  "/cart/:userId/products",
+  isSignedIn,
+  isAuthenticated,
+  getAllCartProducts
+)
+
+//delete products from cart
+router.delete(
+  "/cart/:userId/:cartproductId",
+  isSignedIn,
+  isAuthenticated,
+  deletefromCart
+);
+
+//create order
+router.post(
+  "/order/create/:userId", 
+  isSignedIn,
+  isAuthenticated,
+  //pushOrderInPurchaseList,
+  //updateStock,
   createOrder
 );
 //read

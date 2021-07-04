@@ -33,7 +33,7 @@ Create product = http://localhost:3001/api/product/create/:userId
 
 Get a product = http://localhost:3001/api/product/:productId
     GET
-    get a product by using its id
+    get a product by using its id (TODO: - phto is not accessible)
 
 Get a product photo = http://localhost:3001/api/product/photo/:productId
     GET
@@ -48,25 +48,19 @@ Delete a product = http://localhost:3001/api/product/:productId/:userId
 
 Get all the products = http://localhost:3001/api/products
     GET
-    get all the products from the DB TODO:
+    get all the products from the DB 
 
+Adding products to cart = http://localhost:3001/api/cart/:userId
+    POST
+    adding items to cart for ordering
 
+Get all the products from cart = http://localhost:3001/api/cart/:userId/products
+    GET
+    get all the products from the cart
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Have to work on these
+Deleting products from cart = http://localhost:3001/api/cart/:userId/:cartproductId
+    DELETE
+    deleting items from cart for ordering  TODO: not working (Access denied)
 
 Create order = http://localhost:3001/api/order/create/:userId
     POST
@@ -74,6 +68,9 @@ Create order = http://localhost:3001/api/order/create/:userId
 
 User purchase list (rendering orders of a user) = http://localhost:3001/api/orders/user/:userId
     GET
+    to get all the orders of a user
+    
+
 
 
 

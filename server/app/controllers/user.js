@@ -43,7 +43,7 @@ exports.updateUser = (req, res) => {
 };
 
 exports.userPurchaseList = (req, res) => {
-  Order.find({ user: req.profile._id })
+  Order.Order.find({ user: req.profile._id })
     .populate("user", "_id name")
     .exec((err, order) => {
       if (err) {
@@ -57,7 +57,8 @@ exports.userPurchaseList = (req, res) => {
 
 exports.pushOrderInPurchaseList = (req, res, next) => {
   let purchases = [];
-  req.body.order.products.forEach((product) => {
+  console.log(req.body.order)
+  req.body.products.forEach((product) => {
     purchases.push({
       _id: product._id,
       name: product.name,

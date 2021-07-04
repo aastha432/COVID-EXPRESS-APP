@@ -1,14 +1,21 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
+const {getAllCartProducts} = require("../controllers/order")
 
 const productCartSchema = new mongoose.Schema({
   product: {
     type: ObjectId,
     ref: "Product",
   },
-  name: String,
-  count: Number,
-  price: Number,
+  name: {
+    type: String,
+    ref: "Product",
+  },
+  count: Number, 
+  price: {
+    type: Number,
+    ref: "Product",
+  }
 });
 
 const ProductCart = mongoose.model("ProductCart", productCartSchema);

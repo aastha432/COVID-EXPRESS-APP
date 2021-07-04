@@ -127,7 +127,6 @@ exports.updateProduct = (req, res) => {
 exports.getAllProducts = (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
-  console.log("Entered the getAllProducts func")
 
   Product.find()
     .select("-photo")
@@ -144,7 +143,7 @@ exports.getAllProducts = (req, res) => {
 };
 
 exports.updateStock = (req, res, next) => {
-  let myOperations = req.body.order.products.map((prod) => {
+  let myOperations = req.body.products.map((prod) => {
     return {
       updateOne: {
         filter: { _id: prod._id },
