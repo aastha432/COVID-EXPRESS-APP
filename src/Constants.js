@@ -4,5 +4,6 @@ export const ScreenName = {
     Register:2,
     MyCart:3,
     AboutUs:4,
-    Payment:5
+    Payment:5,
+    MyOrders:6
 }

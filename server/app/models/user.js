@@ -14,7 +14,7 @@ const opts = { toJSON: { virtuals: true } };
     lastname: {
         type: String,
         maxlength: 32,
-        trim: true
+        trim: false
     },
     email: {
         type: String,
@@ -24,7 +24,7 @@ const opts = { toJSON: { virtuals: true } };
     },
     userinfo: {
         type: String,
-        trim: true
+        trim: false
     },
 
     encry_password: {

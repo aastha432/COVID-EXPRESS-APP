@@ -12,8 +12,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import AuthService from "../services/auth.service";
-
+import {signup} from "../services/auth.service";
+import * as Constants from '../Constants';
+import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
+import { Spinner } from '@fluentui/react/lib/Spinner';
+import { DefaultButton, PrimaryButton } from '@fluentui/react/lib/Button';
 
 function Copyright() {
   return (
@@ -57,16 +60,18 @@ export default class SignUp extends Component {
     this.onChangePassword = this.onChangePassword.bind(this);
     this.changeFName = this.changeFName.bind(this);
     this.changeLName = this.changeLName.bind(this);
-    
+    this.closeDialog = this.closeDialog.bind(this);
 
     this.state = {
       username: "",
       email: "",
       password: "",
       successful: false,
+      isError:false,
       message: "",
       fname:"",
-      lname:""
+      lname:"",
+      loader:false,
     };
   }
 
@@ -103,37 +108,45 @@ export default class SignUp extends Component {
 
   handleRegister(e) {
     e.preventDefault();
-
-    
-debugger;
-    
-      AuthService.register(
-        this.state.username,
-        this.state.email,
-        this.state.password
-      ).then(
-        response => {
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          this.setState({
-            successful: false,
-            message: resMessage
-          });
-        }
-      );
+    this.setState({
+      loader:true
+    })
+      let name = this.state.fname + " "+ this.state.lname;
+      let email = this.state.email;
+      let password = this.state.password;
+      signup({ name, email, password })
+    .then(data => {
+      if (data.error || data.err) {
+        this.setState({
+          message: data.error?data.error:data.err,
+          successful: false,
+          loader:false,
+          isError:true
+        });
+      } else {
+        this.setState({
+          message: "Registered successfully",
+          successful: true,
+          loader:false
+        });  
+      }
+    })
+    .catch(
+console.log("error in sign up")
+      );  
     }
   
+    closeDialog(){
+      if(this.state.successful){
+        this.props.changePage(Constants.ScreenName.Login);
+      }
+      this.setState({
+        successful:false,
+        loader:false,
+        isError:false
+      });
+      
+    }
 
   getStyles(){
     const classes = useStyles();
@@ -221,13 +234,25 @@ debugger;
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/signin" variant="body2" onClick={()=>this.props.loginPage(1)}>
+              <Link href="#" variant="body2" onClick={()=>this.props.changePage(Constants.ScreenName.Login)}>
                 Already have an account? Sign in 
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
+      <Dialog
+        hidden={!this.state.successful && !this.state.loader && !this.state.isError}
+       isBlocking
+      // onDismiss={this.closeDialog}
+      >
+         {this.state.loader?<Spinner label="Working on it"></Spinner>:""}
+          {this.state.successful || this.state.isError?this.state.message:"" }
+        <DialogFooter>
+         
+        {this.state.successful || this.state.isError?<PrimaryButton onClick={this.closeDialog} text="Ok" />:""}
+        </DialogFooter>
+      </Dialog>
       <Box mt={5}>
         <Copyright />
       </Box>
@@ -236,3 +261,4 @@ debugger;
   );
  }
 }
+ 

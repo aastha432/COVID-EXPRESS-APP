@@ -1,38 +1,65 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/auth/";
+const API = "http://localhost:3001/api";
 
-class AuthService {
-  login(username, password) {
-    return axios
-      .post(API_URL + "signin", {
-        username,
-        password
-      })
-      .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
+export const signup = user => {
+  return fetch(`${API}/signup`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+  })
+    .then(response => {
+      debugger;
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
 
-        return response.data;
-      });
+export const signin = user => {
+  return fetch(`${API}/signin`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
+export const authenticate = (data, next) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("jwt", JSON.stringify(data));
+    next();
   }
+};
 
-  logout() {
-    localStorage.removeItem("user");
+export const signout = next => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("jwt");
+    next();
+
+    return fetch(`${API}/signout`, {
+      method: "GET"
+    })
+      .then(response => console.log("signout success"))
+      .catch(err => console.log(err));
   }
+};
 
-  register(username, email, password) {
-    return axios.post(API_URL + "signup", {
-      username,
-      email,
-      password
-    });
+export const isAutheticated = () => {
+  if (typeof window == "undefined") {
+    return false;
   }
-
-  getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
+  if (localStorage.getItem("jwt")) {
+    return JSON.parse(localStorage.getItem("jwt"));
+  } else {
+    return false;
   }
-}
-
-export default new AuthService();
+};

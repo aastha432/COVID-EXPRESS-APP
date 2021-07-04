@@ -13,7 +13,7 @@ exports.signup = (req, res) => {
 
   if (!errors.isEmpty()) {
     return res.status(422).json({
-      error: errors.array()
+      error: errors.array() 
     });
   } 
 
